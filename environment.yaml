@@ -1,0 +1,17 @@
+name: scenge-env
+
+channels:
+  - conda-forge
+  - nvidia
+
+dependencies:
+  - python=3.8.20
+  - cuda-toolkit=12.1 
+  - gcc_linux-64=11
+  - gxx_linux-64=11
+  - cmake
+  - make
+  - ninja
+  - ffmpeg
+  - pip
+  - uv

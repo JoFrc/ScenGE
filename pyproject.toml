@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=45,<82", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["safebench*"]
+
+[project]
+name = "scenge"
+version = "0.1.0"
+description = "[AAAI 2026] Adversarial Generation and Collaborative Evolution of Safety-Critical Scenarios for Autonomous Vehicles"
+readme = "README.md"
+requires-python = ">=3.8.2,<3.9"
+# Lean baseline: just enough to load CARLA scenarios, run the four
+# traditional baselines (LC / CS / AdvSim / AdvTraj) and the Scenic /
+# ChatScene path. Heavier components (LLM-based scenario generation in
+# msgen, optional figure tools) are pulled via the extras below.
+dependencies = [
+    "torch==2.2.0",
+    "torchvision==0.17.0",
+    "torchaudio==2.2.0",
+    "tqdm>=4.67.1",
+    "numpy==1.21.6",
+    "pandas>=1.3",
+    "gym==0.23.1",
+    "pygame==2.3.0",
+    "pyyaml>=6.0.3",
+    "opencv-python>=4.12.0.88",
+    "shapely==1.8.5",
+    "ephem>=4.2",
+    "cpprb>=11.0.0",
+    "scikit-image>=0.21.0",
+    "setuptools>=75.3.4",
+]
+
+[project.optional-dependencies]
+# Required only by safebench/scenge/msgen (LLM + RAG). Skip if you only
+# want to run baselines / Scenic eval.
+msgen = [
+    "sentence-transformers>=3.2.1",
+    "transformers>=4.46.3",
+    "llama-index-core>=0.11.23",
+    "llama-index-llms-huggingface>=0.3.5",
+    "llama-index-llms-openai>=0.2.0",
+    "llama-index-embeddings-openai>=0.2.0",
+    "llama-index-embeddings-huggingface>=0.3.1",
+    "llama-index-readers-file>=0.3.0",
+    "bitsandbytes>=0.45.5",
+    "accelerate>=1.0.1",
+    "openai>=1.0.0",
+]
+dev = [
+    "black>=24.8.0",
+    "ruff>=0.5.0",
+]
+
+[tool.uv]
+find-links = [
+    "https://download.pytorch.org/whl/cu121",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+fixable = ["ALL"]
